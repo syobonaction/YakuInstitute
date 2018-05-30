@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsinline autoplay muted loop>
+<source src="http://www.galeriedohyanglee.com/ARTISTES/GEAMOON/VIDEOS/Extrait2HQ.mp4" type="video/mp4">
+</video>
+    <title>Yaku Institute</title>
+    <meta content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=0" name="viewport">
+    <link href='https://fonts.googleapis.com/css?family=Cuprum:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+  </head>
+  <body ng-controller="ctrlMain">
+    <div class="container">
+      <header>
+        <h1>Yaku Institute</h1>
+        <img src="img/logo.png"/>
+        <ul class="nav-h">
+          <li ng-class="navTab==1 ? 'tabSel' : ''"><a href="" ng-click="navTab=1">This Month</a></li>
+          <li ng-class="navTab==2 ? 'tabSel' : ''"><a href="" ng-click="navTab=2">Archive</a></li>
+          <li ng-class="navTab==3 ? 'tabSel' : ''"><a href="" ng-click="navTab=3">About</a></li>
+        </ul>
+      </header>
+      <div class="container-50 left">
+        <h3 ng-bind-html="titles[navTab-1]"></h3>
+          <section id="results" class="results" ng-controller="ctrlResults" ng-show="navTab==1">
+            <ul>
+              <li ng-repeat="asset in assets | fltrMonth track by $index" ng-click="displayInfo(asset)">
+                <p ng-model="asset.date">{{asset.date}} |
+                  <span ng-model="asset.title">{{asset.title}} | <span>
+                  <span ng-model="asset.presenter">{{asset.presenter}}</span>
+                </p>
+              </li>
+            </ul>
+          </section>
+        <section id="tabArchive" class="results"  ng-controller="ctrlResults" ng-show="navTab==2">
+          <ul>
+            <li ng-repeat="asset in assets | fltrArchive track by $index" ng-click="displayInfo(asset)">
+              <p class="lecture" ng-model="asset.date">{{asset.date}}/{{asset.month}}/{{asset.year}} |
+                <span ng-model="asset.title">{{asset.title}} | <span>
+                <span ng-model="asset.presenter">{{asset.presenter}}</span>
+              </p>
+            </li>
+          </ul>
+        </section>
+        <section id="tabAbout" ng-show="navTab==3">
+          <p>Yaku is a blah blah blah</p>
+        </section>
+      </div><div class="container-50 right">
+        <section id="info">
+          <h3 ng-bind="currentEvent.title"></h3>
+          <h4 ng-bind="currentEvent.presenter"></h4>
+          <p ng-bind="currentEvent.text"></p>
+          <h4>Video</h4>
+          <div class="videoWrapper"><iframe width="560" height="315" ng-src="{{trustSrc(currentEvent.url)}}" frameborder="0" allowfullscreen></iframe></div>
+        </section>
+      </div>
+    </div>
+    <footer>
+
+    </footer>
+  </body>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://code.angularjs.org/1.4.0-rc.2/angular.min.js"></script>
+  <script type="text/javascript" src="https://code.angularjs.org/1.4.0-rc.2/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="js/assets.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+
+</html>

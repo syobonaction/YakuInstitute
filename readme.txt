@@ -1,0 +1,1 @@
+Open index.html and bookmark the page for quick access.
